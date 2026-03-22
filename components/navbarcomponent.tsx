@@ -8,15 +8,22 @@ import notesicon from "@/public/assets/notesicon.png";
 import {
   Navbar,
   NavbarBrand,
-  NavbarCollapse,
-  NavbarLink,
-  NavbarToggle,
   TextInput,
 } from "flowbite-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export function NavbarComponent() {
+  const [contact, getContact] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5181/User")
+      .then((response) => response.json())
+      .then((data) => getContact(data.contact))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   return (
     <div>
       <Navbar fluid className="!bg-white">
@@ -25,10 +32,7 @@ export function NavbarComponent() {
             loading="eager"
             alt="contact manager logo"
             src={purpleusericon}
-            style={{
-              maxWidth: "5%",
-              height: "auto",
-            }}
+            style={{ maxWidth: "5%", height: "auto" }}
           />
           <span className="self-center whitespace-nowrap text-xl font-extrabold text-[#896deb]">
             Contact Flow
@@ -37,9 +41,8 @@ export function NavbarComponent() {
             Contact Manager
           </div>
         </NavbarBrand>
-        <div>
-          <TextInput placeholder="search contacts..." className="rounded-lg" />
-        </div>
+
+        <TextInput placeholder="search contacts..." className="rounded-lg" />
       </Navbar>
 
       <div>
@@ -48,46 +51,27 @@ export function NavbarComponent() {
           <p className="text-gray-600 font-light">
             Fill in the details below to add a new contact to your list
           </p>
-          <Image
-            loading="eager"
-            alt="emailicon"
-            src={emailicon}
-            style={{
-              maxWidth: "1%",
-              height: "auto",
-            }}
-          />
+
+          <Image alt="emailicon" src={emailicon} style={{ maxWidth: "1%" }} />
           <p className="font-bold text-black">Name</p>
           <TextInput placeholder="John Doe" className="rounded-lg" />
-          <Image
-            loading="eager"
-            alt="phoneicon"
-            src={phoneicon}
-            style={{
-              maxWidth: "1%",
-              height: "auto",
-            }}
-          />
+
+          <Image alt="phoneicon" src={phoneicon} style={{ maxWidth: "1%" }} />
           <p className="font-bold text-black">Email</p>
           <TextInput
             className="rounded-lg"
             placeholder="john.doe@exapmle.com"
           />
-          <Image
-            loading="eager"
-            alt="usericon"
-            src={usericon}
-            style={{
-              maxWidth: "1%",
-              height: "auto",
-            }}
-          />
+
+          <Image alt="usericon" src={usericon} style={{ maxWidth: "1%" }} />
           <p className="font-bold text-black">Phone</p>
           <TextInput placeholder="+1 (555) 123-4567" className="rounded-lg" />
-          <button className="bg-[#896deb] text-white rounded-lg pl-5 placeholder p-3">
+
+          <button className="bg-[#896deb] text-white rounded-lg pl-5 p-3">
             + Add Contact
           </button>
         </div>
+
         <div className="bg-white">
           <div>
             <h1 className="text-black font-extrabold border-4 border-white">
@@ -95,6 +79,7 @@ export function NavbarComponent() {
             </h1>
             <h1 className="text-black font-light text-end">5 Contacts</h1>
           </div>
+
           <div className="flex flex-row justify-around">
             <div>
               <p className="text-gray-600 font-light">Name</p>
@@ -104,6 +89,7 @@ export function NavbarComponent() {
               <p className="text-gray-600 pt-4 font-bold">Diana Miller</p>
               <p className="text-gray-600 pt-4 font-bold">Eve Davis</p>
             </div>
+
             <div>
               <p className="text-gray-600 font-light">Email</p>
               <p className="text-gray-600 pt-4 font-bold">
@@ -122,6 +108,7 @@ export function NavbarComponent() {
                 eve.davis@example.com
               </p>
             </div>
+
             <div>
               <p className="text-gray-600 font-light">Phone</p>
               <p className="text-gray-600 pt-4 font-bold">+1 (555) 101-2020</p>
@@ -130,119 +117,32 @@ export function NavbarComponent() {
               <p className="text-gray-600 pt-4 font-bold">+1 (555) 707-8080</p>
               <p className="text-gray-600 pt-4 font-bold">+1 (555) 909-1010</p>
             </div>
+
             <div>
               <p className="text-gray-600 font-light">Actions</p>
+
               <div className="flex-col justify-around">
-                <div>
-                  <Image
-                    loading="eager"
-                    alt="notesicon"
-                    src={notesicon}
-                    style={{
-                      maxWidth: "4%",
-                      height: "auto",
-                    }}
-                  />
-                  <div id="redSquare1">
-                    <div
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "red",
-                        borderRadius: "10px",
-                        margin: "20px",
-                      }}
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i}>
+                    <Image
+                      loading="eager"
+                      alt="notesicon"
+                      src={notesicon}
+                      style={{ maxWidth: "4%", height: "auto" }}
                     />
+                    <div id="redSquare1">
+                      <div
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          backgroundColor: "red",
+                          borderRadius: "10px",
+                          margin: "20px",
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <Image
-                    loading="eager"
-                    alt="notesicon"
-                    src={notesicon}
-                    style={{
-                      maxWidth: "4%",
-                      height: "auto",
-                    }}
-                  />
-                  <div id="redSquare1">
-                    <div
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "red",
-                        borderRadius: "10px",
-                        margin: "20px",
-                      }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Image
-                    loading="eager"
-                    alt="notesicon"
-                    src={notesicon}
-                    style={{
-                      maxWidth: "4%",
-                      height: "auto",
-                    }}
-                  />
-                  <div id="redSquare1">
-                    <div
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "red",
-                        borderRadius: "10px",
-                        margin: "20px",
-                      }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Image
-                    loading="eager"
-                    alt="notesicon"
-                    src={notesicon}
-                    style={{
-                      maxWidth: "4%",
-                      height: "auto",
-                    }}
-                  />
-                  <div id="redSquare1">
-                    <div
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "red",
-                        borderRadius: "10px",
-                        margin: "20px",
-                      }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Image
-                    loading="eager"
-                    alt="notesicon"
-                    src={notesicon}
-                    style={{
-                      maxWidth: "4%",
-                      height: "auto",
-                    }}
-                  />
-                  <div id="redSquare1">
-                    <div
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "red",
-                        borderRadius: "10px",
-                        margin: "20px",
-                      }}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
